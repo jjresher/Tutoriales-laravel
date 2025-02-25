@@ -51,13 +51,20 @@ return view('product.show')->with("viewData", $viewData);
 
 }
 
+public function create(): View
+{
+    $viewData = []; //to be sent to the view
+    $viewData["title"] = "Create product";
+
+    return view('product.create')->with("viewData",$viewData);
+}
+
 public function save(Request $request): \Illuminate\Http\RedirectResponse
 {
     $request->validate([
         "name" => "required",
         "price" => "required"
     ]);
-
     Product::create($request->only(["name","price"]));
 
     return back();
